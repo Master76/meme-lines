@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": [
+      "es6"
+    ],
+    "checkJs": true,
+    "charset": "utf-8"
+  },
+  "exclude": [
+    "node_modules/*"
+  ]
+}
