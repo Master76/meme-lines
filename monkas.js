@@ -22,13 +22,12 @@ class FeelsGoodMan {
     this.bytesBuffer = Buffer.alloc(this.bufferSize);
     /** @type {string[]} */
     this.memes = [];
-    this.mi = 0;
   }
 
   readLine() {
     if (this.fd == -1) return undefined;
-    if (this.mi < this.memes.length - 1) {
-      return this.memes[this.mi++];
+    if (this.memes.length > 1) {
+      return this.memes.shift();
     }
     if (this.bytesRead = fs.readSync(this.fd, this.bytesBuffer, 0, this.bufferSize, this.bytesPos)) {
       this.bytesPos += this.bytesRead;
@@ -39,14 +38,16 @@ class FeelsGoodMan {
         lines[0] = unfinished + lines[0];
       }
       this.memes.push(...lines);
-      this.mi++;
-      return lines[0];
+      if (lines.length == 1) {
+        return this.readLine();
+      }
+      return this.memes.shift();
     }
     // end of file
     else {
       fs.closeSync(this.fd);
       this.fd = -1;
-      return this.memes[this.mi++];
+      return this.memes.shift();
     }
   }
 
